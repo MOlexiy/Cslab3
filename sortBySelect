@@ -1,57 +1,34 @@
-using System;
+#include <stdio.h>
+#include <malloc.h>
 
-namespace Sort
+int main()
 {
-    class Program
-    {
-        static int[] ViborSort(int[] mas)
-        {
+    int N;
+    printf("Input N: ");
+    scanf_s("%d", &N);
+    int* mass;
+    mass = (int *)malloc(N * sizeof(int));
+    printf("Input the array elements:\n");
+    for (int i = 0; i < N; i++)
+        scanf_s("%d", &mass[i]);
+    //сортировка методом выбора
+    int minPosition, tmp;
 
-            for (int i = 0; i < mas.Length - 1; i++)
-            {
-                //поиск минимального числа
-                int min = i;
-                for (int j = i + 1; j < mas.Length; j++)
-                {
-                    if (mas[j] < mas[min])
-                    {
-                        min = j;
-                    }
-                }
-                //обмен элементов
-                int temp = mas[min];
-                mas[min] = mas[i];
-                mas[i] = temp;
-            }
-            return mas;
-        }
-        static void Main(string[] args)
-        {
-            {
-                //Console.WriteLine("Ho many numbers u write?"); //Ведите количество чисел для сортировки.
-                //int N = Convert.ToInt32(Console.ReadLine());
-                Random rand = new Random();
-                int[] mas = new int[1000];
-                for (int i = 0; i < mas.Length; i++)
-                {
-                    mas[i] = rand.Next(-1000, 1000);
-                }
-                /*
-                Console.WriteLine("Write the nubmer for the sort:"); //Введите числа для сортировки
-                int[] mas = new int[N];
-                for (int i = 0; i < mas.Length; i++)
-                {
-                    mas[i] = Convert.ToInt32(Console.ReadLine());
-                }
-                */
-                ViborSort(mas);
-                Console.WriteLine("Sort mass:");//Отсортированный массив
-                for (int i = 0; i < mas.Length; i++)
-                {
-                    Console.WriteLine(mas[i]);
-                }
-                Console.ReadLine();
-            }
-        }
+    for (int i = 0; i < N; i++)
+    {
+        minPosition = i;
+        for (int j = i + 1; j < N; j++)
+            if (mass[minPosition] > mass[j])
+                minPosition = j;
+        tmp = mass[minPosition];
+        mass[minPosition] = mass[i];
+        mass[i] = tmp;
     }
+
+    printf("Sorted array:\n");
+    for (int i = 0; i < N; i++)
+        printf("%d ", mass[i]);
+    printf("\n");
+    free(mass);
+    return 0;
 }
